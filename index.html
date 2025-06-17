@@ -17,7 +17,7 @@
   <button id="checkout-button">Checkout</button>
 
   <script>
-    const stripe = Stripe("pk_test_YOUR_PUBLISHABLE_KEY"); // Replace with your actual Stripe publishable key
+    const stripe = Stripe("pk_test_51Ray0HRe6VwmTO8l2fgGbONMK5aAKtyVD1sVtmsXf4iY65Gsaw7SkUqnjulDT7zljM6EzktkFqyuUhcySYOEi0sd00sAXLv8hz"); // Replace with your actual Stripe publishable key
 
     document.getElementById("checkout-button").addEventListener("click", async () => {
       const priceId = document.getElementById("product-select").value;
