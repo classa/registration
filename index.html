@@ -1,7 +1,45 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <title>Product Checkout</title>
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+  <h2>Select a Product</h2>
+  <select id="product-select">
+    <option value="">-- Choose a product --</option>
+    <option value="price_1ABC123">Product A - $10</option>
+    <option value="price_1DEF456">Product B - $25</option>
+    <option value="price_1GHI789">Product C - $50</option>
+  </select>
+
+  <br><br>
+  <button id="checkout-button">Checkout</button>
+
+  <script>
+    const stripe = Stripe("pk_test_YOUR_PUBLISHABLE_KEY"); // Replace with your actual Stripe publishable key
+
+    document.getElementById("checkout-button").addEventListener("click", async () => {
+      const priceId = document.getElementById("product-select").value;
+
+      if (!priceId) {
+        alert("Please select a product.");
+        return;
+      }
+
+      const response = await fetch("https://YOUR_DOMAIN/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ priceId }),
+      });
+
+      const session = await response.json();
+
+      // Redirect to Stripe Checkout
+      stripe.redirectToCheckout({ sessionId: session.id });
+    });
+  </script>
 </body>
 </html>
